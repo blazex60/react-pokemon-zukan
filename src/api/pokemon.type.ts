@@ -1,6 +1,6 @@
 // src/api/pokemon.type.ts
 
-import { Name, NamedAPIResource } from './common.type';
+import {type Name,type NamedAPIResource } from './common.type';
 
 export interface PokemonSprites {
   front_default: string | null;
