@@ -33,8 +33,8 @@ const PokemonDetail: React.FC = () => {
         <h1 className="mt-4 text-2xl font-bold">{data.japaneseName} (#{data.id})</h1>
         <p className="mt-2 text-justify">{data.description}</p>
         <div className="grid grid-cols-2 gap-2">
-          {data?.types?.map((type) => (
-            <PokemonTypeLabel key={type} type={type} />
+          {data?.types?.map((pokemonType: string) => (
+            <PokemonTypeLabel key={pokemonType} pokemonType={pokemonType} />
           ))}
         </div>
           <span className="w-fit whitespace-nowrap text-right">特性</span>
