@@ -1,25 +1,39 @@
 // src/components/Navigation.tsx
 import React from 'react';
-// useLocation をインポート
 import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
-  // window.location.pathname の代わりに useLocation() を使用
   const { pathname } = useLocation();
 
+  // タブナビゲーションの定義
+  const navItems = [
+    { path: '/', label: 'ホーム', icon: '🏠' },
+    { path: '/search', label: '検索', icon: '🔍' }
+  ];
+
   return (
-    <nav className="bg-gray-100 p-4">
-      <ul className="flex space-x-4">
-        {/* 一覧画面の場合は一覧ボタンを非表示 */}
-        {
-          pathname !== '/' && (
-            <li>
-              <Link to="/" className="text-blue-500 hover:underline text-decoration-none">{"< "}一覧</Link>
-            </li>
-          )
-        }
-        {/* 追加のナビゲーションリンクをここに記載 */}
-      </ul>
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+      <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+        {navItems.map((item) => {
+          const isActive = pathname === item.path || 
+            (item.path === '/' && pathname.startsWith('/pokemon/'));
+          
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors duration-200 ${
+                isActive 
+                  ? 'text-blue-600 bg-blue-50' 
+                  : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              <span className="text-xl mb-1">{item.icon}</span>
+              <span className="text-xs font-medium">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 };
