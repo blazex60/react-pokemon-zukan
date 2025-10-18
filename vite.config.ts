@@ -8,5 +8,5 @@ export default defineConfig(({command}) => ({
     react(),
     tailwindcss(),
   ],
-  base: command === "serve" ? "/" : "react-pokemon-zukan/",
+  base: command === 'serve' ? '/' : '/react-pokemon-zukan/',
 }))
