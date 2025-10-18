@@ -21,37 +21,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install deps
         run: npm ci
 
       - name: Build
-        # CRAなら PUBLIC_URL、Viteなら vite.config.ts の base を推奨（下に補足）
-        run: npm run build
-        env:
-          PUBLIC_URL: /react-pokemon-zukan
+        # Vite/CRA などに合わせて調整。リポ名配下に載せるなら PUBLIC_URL/base を指定。
+        run: |
+          PUBLIC_URL=/react-pokemon-zukan npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Vite: dist / CRA: build に合わせて変える
-          path: ./dist
+          path: ./dist  # ←ビルド成果物の実ディレクトリに合わせる
 
   deploy:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Configure Pages
-        uses: actions/configure-pages@v4
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
