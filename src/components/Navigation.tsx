@@ -1,9 +1,11 @@
 // src/components/Navigation.tsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+// useLocation をインポート
+import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
-  const pathname = window.location.pathname;
+  // window.location.pathname の代わりに useLocation() を使用
+  const { pathname } = useLocation();
 
   return (
     <nav className="bg-gray-100 p-4">
@@ -23,4 +25,3 @@ const Navigation: React.FC = () => {
 };
 
 export default Navigation;
-
